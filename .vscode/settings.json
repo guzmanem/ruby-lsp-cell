@@ -1,0 +1,19 @@
+{
+    "cSpell.words": [
+        "rubocop",
+        "shopify",
+        "cell",
+    ],
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
+    "rubyLsp.addonSettings": {
+        "Ruby LSP Cell": {
+            "enabled": true,
+            "defaultViewFileName": "show.erb"
+        }
+    }
+}

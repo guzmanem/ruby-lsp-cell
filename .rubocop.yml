@@ -1,13 +1,22 @@
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
+plugins:
+  - rubocop-sorbet
+require:
+ - rubocop-rake
+
 AllCops:
-  TargetRubyVersion: 2.6
+  NewCops: disable
+  DisplayCopNames: true
+  SuggestExtensions: false
+  DisabledByDefault: false
 
-Style/StringLiterals:
+Style/StderrPuts:
   Enabled: true
-  EnforcedStyle: double_quotes
 
-Style/StringLiteralsInInterpolation:
-  Enabled: true
-  EnforcedStyle: double_quotes
+Style/MethodCallWithArgsParentheses:
+  Enabled: false
 
-Layout/LineLength:
-  Max: 120
+Naming/PredicatePrefix:
+  Enabled: false
