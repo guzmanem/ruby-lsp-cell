@@ -10,11 +10,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Ruby ${{ matrix.ruby }}
+    name: Ruby Test
     strategy:
       matrix:
         ruby:
-          - '2.7.4'
+          - '3.4.3'
 
     steps:
     - uses: actions/checkout@v2
