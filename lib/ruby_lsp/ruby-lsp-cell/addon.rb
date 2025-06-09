@@ -7,8 +7,6 @@ require "ruby_lsp/internal"
 require_relative "code_lens"
 require_relative "../cell/version"
 
-RubyLsp::Addon.depend_on_ruby_lsp!("~> 0.23.0")
-
 module RubyLsp
   module Cell
     #
@@ -27,7 +25,7 @@ module RubyLsp
         @default_view_filename = T.let(nil, T.nilable(String))
       end
 
-      sig { params(global_state: RubyLsp::GlobalState, message_queue: Thread::Queue).void }
+      sig { override.params(global_state: RubyLsp::GlobalState, message_queue: Thread::Queue).void }
       def activate(global_state, message_queue)
         @message_queue = message_queue
         @global_state = global_state
@@ -36,16 +34,16 @@ module RubyLsp
         @default_view_filename = @settings.fetch(:defaultViewFileName, "show.erb")
       end
 
-      sig { void }
+      sig { override.void }
       def deactivate; end
 
-      sig { returns(String) }
+      sig { override.returns(String) }
       def name
         "Ruby LSP Cell"
       end
 
       sig do
-        params(
+        override.params(
           response_builder: ResponseBuilders::CollectionResponseBuilder,
           uri: URI::Generic,
           dispatcher: Prism::Dispatcher,
@@ -62,7 +60,7 @@ module RubyLsp
         )
       end
 
-      sig { returns(String) }
+      sig { override.returns(String) }
       def version
         RubyLsp::Cell::VERSION
       end

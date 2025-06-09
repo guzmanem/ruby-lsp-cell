@@ -1,7 +1,8 @@
 PATH
   remote: .
   specs:
-    ruby-lsp-cell (0.1.0)
+    ruby-lsp-cell (0.0.1)
+      ruby-lsp (~> 0.17.17, >= 0.17.17)
 
 GEM
   remote: https://rubygems.org/
@@ -147,17 +148,7 @@ GEM
       net-protocol
     netrc (0.11.0)
     nio4r (2.7.4)
-    nokogiri (1.18.8-aarch64-linux-gnu)
-      racc (~> 1.4)
-    nokogiri (1.18.8-aarch64-linux-musl)
-      racc (~> 1.4)
     nokogiri (1.18.8-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.18.8-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.18.8-x86_64-linux-gnu)
-      racc (~> 1.4)
-    nokogiri (1.18.8-x86_64-linux-musl)
       racc (~> 1.4)
     parallel (1.27.0)
     parser (3.3.8.0)
@@ -247,10 +238,10 @@ GEM
     rubocop-sorbet (0.10.2)
       lint_roller
       rubocop (>= 1.75.2)
-    ruby-lsp (0.23.24)
+    ruby-lsp (0.17.17)
       language_server-protocol (~> 3.17.0)
-      prism (>= 1.2, < 2.0)
-      rbs (>= 3, < 5)
+      prism (~> 1.0)
+      rbs (>= 3, < 4)
       sorbet-runtime (>= 0.5.10782)
     ruby-progressbar (1.13.0)
     ruby_parser (3.21.1)
@@ -258,15 +249,13 @@ GEM
       sexp_processor (~> 4.16)
     securerandom (0.4.1)
     sexp_processor (4.17.3)
-    sorbet (0.5.12155)
-      sorbet-static (= 0.5.12155)
-    sorbet-runtime (0.5.12155)
-    sorbet-static (0.5.12155-aarch64-linux)
-    sorbet-static (0.5.12155-universal-darwin)
-    sorbet-static (0.5.12155-x86_64-linux)
-    sorbet-static-and-runtime (0.5.12155)
-      sorbet (= 0.5.12155)
-      sorbet-runtime (= 0.5.12155)
+    sorbet (0.5.12163)
+      sorbet-static (= 0.5.12163)
+    sorbet-runtime (0.5.12163)
+    sorbet-static (0.5.12163-universal-darwin)
+    sorbet-static-and-runtime (0.5.12163)
+      sorbet (= 0.5.12163)
+      sorbet-runtime (= 0.5.12163)
     spoom (1.6.3)
       erubi (>= 1.10.0)
       prism (>= 0.28.0)
@@ -309,15 +298,8 @@ GEM
     zeitwerk (2.7.3)
 
 PLATFORMS
-  aarch64-linux
-  aarch64-linux-gnu
-  aarch64-linux-musl
   arm64-darwin
   universal-darwin
-  x86_64-darwin
-  x86_64-linux
-  x86_64-linux-gnu
-  x86_64-linux-musl
 
 DEPENDENCIES
   bump (~> 0.10.0)
@@ -333,7 +315,7 @@ DEPENDENCIES
   rubocop-rake (~> 0.6.0)
   rubocop-shopify (~> 2.14)
   rubocop-sorbet (~> 0.7)
-  ruby-lsp (~> 0.23.15)
+  ruby-lsp (= 0.17.17)
   ruby-lsp-cell!
   ruby_parser
   sorbet-static-and-runtime

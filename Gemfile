@@ -18,7 +18,6 @@ group :development do
   gem "rubocop-rake", "~> 0.6.0", require: false
   gem "rubocop-shopify", "~> 2.14", require: false
   gem "rubocop-sorbet", "~> 0.7", require: false
-  gem "ruby-lsp", "~> 0.23.15"
   gem "ruby_parser"
   gem "sorbet-static-and-runtime"
   gem "tapioca", require: false

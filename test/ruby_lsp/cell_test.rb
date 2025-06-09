@@ -186,8 +186,11 @@ module RubyLsp
         },
       })
 
-      server.global_state.index.index_single(uri, source)
-      server.load_addons(include_project_addons: false)
+      server.global_state.index.index_single(
+        RubyIndexer::IndexablePath.new(nil, uri.to_standardized_path),
+        source,
+      )
+      server.load_addons
 
       begin
         block.call(server, uri)
