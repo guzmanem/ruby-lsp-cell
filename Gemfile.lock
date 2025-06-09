@@ -249,7 +249,7 @@ GEM
     rubocop-sorbet (0.10.2)
       lint_roller
       rubocop (>= 1.75.2)
-    ruby-lsp (0.23.24)
+    ruby-lsp (0.24.1)
       language_server-protocol (~> 3.17.0)
       prism (>= 1.2, < 2.0)
       rbs (>= 3, < 5)
@@ -337,7 +337,7 @@ DEPENDENCIES
   rubocop-rake (~> 0.6.0)
   rubocop-shopify (~> 2.14)
   rubocop-sorbet (~> 0.7)
-  ruby-lsp (~> 0.23.15)
+  ruby-lsp (~> 0.24.1)
   ruby-lsp-cell!
   ruby_parser
   sorbet-static-and-runtime
