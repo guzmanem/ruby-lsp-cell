@@ -21,7 +21,7 @@ group :development do
   gem "ruby-lsp", "~> 0.23.15"
   gem "ruby_parser"
   gem "sorbet-static-and-runtime"
-  gem "tapioca", require: false
+  gem "tapioca", "0.17.0", require: false
   gem "temple", "~> 0.10"
   gem "rails"
 end
