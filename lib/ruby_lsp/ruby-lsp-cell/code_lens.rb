@@ -40,6 +40,7 @@ module RubyLsp
       def on_class_node_enter(node)
         @class_name = node.constant_path.slice
         return unless @class_name.end_with?("Cell")
+        return unless @global_state.index.linearized_ancestors_of(@class_name).include?("Cell::ViewModel")
 
         add_default_goto_code_lens(node)
       end
@@ -53,6 +54,7 @@ module RubyLsp
       def on_def_node_leave(node)
         return unless @class_name.end_with?("Cell")
         return unless contains_render_call?(node.body)
+        return unless @global_state.index.linearized_ancestors_of(@class_name).include?("Cell::ViewModel")
 
         add_function_goto_code_lens(node, node.name.to_s)
       end
