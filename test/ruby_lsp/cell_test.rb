@@ -72,6 +72,43 @@ module RubyLsp
       end
     end
 
+    def test_nested_class_in_module
+      uri = URI("file:///test_cell.rb")
+      source = <<~RUBY
+        module Cell
+          class ViewModel; end
+        end
+
+        module TestCell
+          class NestedCell < Cell::ViewModel; end
+        end
+      RUBY
+
+      with_server(source, uri) do |server, uri|
+        server.process_message(
+          {
+            id: 1,
+            method: "textDocument/codeLens",
+            params: {
+              textDocument: { uri: uri },
+              position: { line: 0, character: 0 },
+            },
+          },
+        )
+
+        server.pop_response
+        response = server.pop_response.response
+
+        assert_equal 1, response.count
+
+        assert_equal "file", response[0].data[:type]
+        assert_equal "Go to show", response[0].command.title
+        assert_equal ["file:///test/show.erb"], response[0].command.arguments[0]
+        assert_equal 5, response[0].range.start.line
+        assert_equal 5, response[0].range.end.line
+      end
+    end
+
     def test_missing_cell_ancestor
       uri = URI("file:///test_cell.rb")
       source = <<~RUBY
