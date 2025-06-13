@@ -12,6 +12,10 @@ module RubyLsp
     def test_class
       uri = URI("file:///test_cell.rb")
       source = <<~RUBY
+        module Cell
+          class ViewModel; end
+        end
+
         class TestCell < Cell::ViewModel; end
       RUBY
 
@@ -34,8 +38,8 @@ module RubyLsp
         assert_equal "goToFile", response[0].data[:type]
         assert_equal "Go to show", response[0].command.title
         assert_equal "/test/show.erb", response[0].command.arguments[0]
-        assert_equal 0, response[0].range.start.line
-        assert_equal 0, response[0].range.end.line
+        assert_equal 4, response[0].range.start.line
+        assert_equal 4, response[0].range.end.line
       end
     end
 
@@ -68,9 +72,42 @@ module RubyLsp
       end
     end
 
+    def test_missing_cell_ancestor
+      uri = URI("file:///test_cell.rb")
+      source = <<~RUBY
+        class TestCell
+          def show
+            render
+          end
+        end
+      RUBY
+
+      with_server(source, uri) do |server, uri|
+        server.process_message(
+          {
+            id: 1,
+            method: "textDocument/codeLens",
+            params: {
+              textDocument: { uri: uri },
+              position: { line: 0, character: 0 },
+            },
+          },
+        )
+
+        server.pop_response
+        response = server.pop_response.response
+
+        assert_equal 0, response.count
+      end
+    end
+
     def test_functions
       uri = URI("file:///test_cell.rb")
       source = <<~RUBY
+        module Cell
+          class ViewModel; end
+        end
+
         class TestCell < Cell::ViewModel
           def edit
             render
@@ -111,32 +148,36 @@ module RubyLsp
         assert_equal "goToFile", response[0].data[:type]
         assert_equal "Go to show", response[0].command.title
         assert_equal "/test/show.erb", response[0].command.arguments[0]
-        assert_equal 0, response[0].range.start.line
-        assert_equal 18, response[0].range.end.line
+        assert_equal 4, response[0].range.start.line
+        assert_equal 22, response[0].range.end.line
 
         assert_equal "goToFile", response[1].data[:type]
         assert_equal "Go to edit", response[1].command.title
         assert_equal "/test/edit.erb", response[1].command.arguments[0]
-        assert_equal 1, response[1].range.start.line
-        assert_equal 3, response[1].range.end.line
+        assert_equal 5, response[1].range.start.line
+        assert_equal 7, response[1].range.end.line
 
         assert_equal "goToFile", response[2].data[:type]
         assert_equal "Go to show", response[2].command.title
         assert_equal "/test/show.erb", response[2].command.arguments[0]
-        assert_equal 5, response[2].range.start.line
-        assert_equal 7, response[2].range.end.line
+        assert_equal 9, response[2].range.start.line
+        assert_equal 11, response[2].range.end.line
 
         assert_equal "goToFile", response[3].data[:type]
         assert_equal "Go to index", response[3].command.title
         assert_equal "/test/index.erb", response[3].command.arguments[0]
-        assert_equal 9, response[3].range.start.line
-        assert_equal 11, response[3].range.end.line
+        assert_equal 13, response[3].range.start.line
+        assert_equal 15, response[3].range.end.line
       end
     end
 
     def test_addon_settings
       uri = URI("file:///test_cell.rb")
       source = <<~RUBY
+        module Cell
+          class ViewModel; end
+        end
+
         class TestCell < Cell::ViewModel; end
       RUBY
       settings = { "Ruby LSP Cell": { defaultViewFileName: "edit.erb" } }
@@ -161,8 +202,8 @@ module RubyLsp
         assert_equal "goToFile", response[0].data[:type]
         assert_equal "Go to edit", response[0].command.title
         assert_equal "/test/edit.erb", response[0].command.arguments[0]
-        assert_equal 0, response[0].range.start.line
-        assert_equal 0, response[0].range.end.line
+        assert_equal 4, response[0].range.start.line
+        assert_equal 4, response[0].range.end.line
       end
     end
 
