@@ -15,7 +15,7 @@ class Object < ::BasicObject
   def s(*args, &blk); end
 end
 
-# source://sexp_processor//lib/sexp.rb#9
+# source://sexp_processor//lib/sexp.rb#11
 class Sexp < ::Array
   # Create a new Sexp containing +args+.
   #
