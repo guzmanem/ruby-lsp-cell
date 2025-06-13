@@ -32,12 +32,31 @@ module RubyLsp
         @pattern = T.let("_cell", String)
         @default_view_filename = T.let(default_view_filename, String)
         @in_cell_class = T.let(false, T::Boolean)
-        dispatcher.register(self, :on_class_node_enter, :on_class_node_leave, :on_def_node_enter)
+        @nesting = T.let([], T::Array[String])
+        dispatcher.register(
+          self,
+          :on_module_node_enter,
+          :on_module_node_leave,
+          :on_class_node_enter,
+          :on_class_node_leave,
+          :on_def_node_enter,
+        )
+      end
+
+      sig { params(node: Prism::ModuleNode).void }
+      def on_module_node_enter(node)
+        @nesting.push(node.constant_path.slice)
+      end
+
+      sig { params(node: Prism::ModuleNode).void }
+      def on_module_node_leave(node)
+        @nesting.pop
       end
 
       sig { params(node: Prism::ClassNode).void }
       def on_class_node_enter(node)
-        class_name = node.constant_path.slice
+        @nesting.push(node.constant_path.slice)
+        class_name = @nesting.join("::")
         return unless class_name.end_with?("Cell")
         return unless @global_state.index.linearized_ancestors_of(class_name).include?("Cell::ViewModel")
 
@@ -47,6 +66,7 @@ module RubyLsp
 
       sig { params(node: Prism::ClassNode).void }
       def on_class_node_leave(node)
+        @nesting.pop
         @in_cell_class = false
       end
 
