@@ -2757,7 +2757,7 @@ CodeRay::Scanners::Ruby::Patterns::VALUE_FOLLOWS = T.let(T.unsafe(nil), Regexp)
 # source://coderay//lib/coderay/scanners/ruby/patterns.rb#59
 CodeRay::Scanners::Ruby::Patterns::VARIABLE = T.let(T.unsafe(nil), Regexp)
 
-# source://coderay//lib/coderay/scanners/ruby/string_state.rb#7
+# source://coderay//lib/coderay/scanners/ruby/string_state.rb#8
 class CodeRay::Scanners::Ruby::StringState < ::Struct
   # @return [StringState] a new instance of StringState
   #
