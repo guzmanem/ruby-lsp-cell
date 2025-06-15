@@ -596,20 +596,20 @@ Minitest::Reporters::JUnitReporter::DEFAULT_REPORTS_DIR = T.let(T.unsafe(nil), S
 # source://minitest-reporters//lib/minitest/reporters/mean_time_reporter.rb#24
 class Minitest::Reporters::MeanTimeReporter < ::Minitest::Reporters::DefaultReporter
   # @option previous_runs_filename
+  # @option report_filename
   # @option show_count
   # @option show_progress
   # @option show_all_runs
   # @option sort_column
   # @option order
-  # @option report_filename
-  # @param order [Hash] a customizable set of options
-  # @param previous_runs_filename [Hash] a customizable set of options
   # @param options [Hash]
+  # @param previous_runs_filename [Hash] a customizable set of options
   # @param report_filename [Hash] a customizable set of options
   # @param show_count [Hash] a customizable set of options
   # @param show_progress [Hash] a customizable set of options
   # @param show_all_runs [Hash] a customizable set of options
   # @param sort_column [Hash] a customizable set of options
+  # @param order [Hash] a customizable set of options
   # @return [Minitest::Reporters::MeanTimeReporter]
   #
   # source://minitest-reporters//lib/minitest/reporters/mean_time_reporter.rb#54

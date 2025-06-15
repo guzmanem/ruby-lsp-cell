@@ -14629,7 +14629,7 @@ end
 # * Support streaming from child templates, partials and so on.
 # * Rack::Cache needs to support streaming bodies
 #
-# source://actionview//lib/action_view/renderer/streaming_template_renderer.rb#9
+# source://actionview//lib/action_view/renderer/streaming_template_renderer.rb#12
 class ActionView::StreamingTemplateRenderer < ::ActionView::TemplateRenderer
   # For streaming, instead of rendering a given a template, we return a Body
   # object that responds to each. This object is initialized with a block
@@ -15258,7 +15258,7 @@ class ActionView::Template::Handlers::Raw
   def call(template, source); end
 end
 
-# source://actionview//lib/action_view/template/inline.rb#5
+# source://actionview//lib/action_view/template/inline.rb#7
 class ActionView::Template::Inline < ::ActionView::Template
   # source://actionview//lib/action_view/template/inline.rb#16
   def compile(mod); end
