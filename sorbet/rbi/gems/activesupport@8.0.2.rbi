@@ -5564,7 +5564,7 @@ end
 # source://activesupport//lib/active_support/core_ext/enumerable.rb#25
 ActiveSupport::EnumerableCoreExt::SoleItemExpectedError = Enumerable::SoleItemExpectedError
 
-# source://activesupport//lib/active_support/environment_inquirer.rb#7
+# source://activesupport//lib/active_support/environment_inquirer.rb#9
 class ActiveSupport::EnvironmentInquirer < ::ActiveSupport::StringInquirer
   # @raise [ArgumentError]
   # @return [EnvironmentInquirer] a new instance of EnvironmentInquirer
