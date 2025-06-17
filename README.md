@@ -44,6 +44,8 @@ Or install it yourself as:
   * **Top of the class** – lets you jump directly to the default template (`app/cells/user/show.erb` unless you changed `defaultViewFileName` in `.vscode/settings.json`).
   * **Any instance method that calls `render`** – jumps to the template rendered by that method.
 
+![example-ruby-lsp](example-ruby-lsp.gif)
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `bundle exec rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
