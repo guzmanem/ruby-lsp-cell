@@ -1,3 +1,7 @@
+## [0.2.0] - 2025-07-21
+
+- Add compatibility with Ruby LSP 0.26.0
+
 ## [0.1.1] - 2025-06-09
 - Add compatibility with Ruby LSP 0.24.1
 
