@@ -7,3 +7,5 @@
 --ignore=sorbet/rbi/sorbet-typed
 --ignore=sorbet/rbi/gems/rbs@3.9.4.rbi
 --ignore=sorbet/rbi/gems/coderay@1.1.3.rbi
+--enable-experimental-rbs-comments
+--enable-experimental-requires-ancestor
