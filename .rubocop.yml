@@ -20,3 +20,6 @@ Style/MethodCallWithArgsParentheses:
 
 Naming/PredicatePrefix:
   Enabled: false
+
+Layout/LeadingCommentSpace:
+  AllowRBSInlineAnnotation: true

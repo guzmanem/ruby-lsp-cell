@@ -18,10 +18,10 @@ group :development do
   gem "rubocop-rake", "~> 0.6.0", require: false
   gem "rubocop-shopify", "~> 2.14", require: false
   gem "rubocop-sorbet", "~> 0.7", require: false
-  gem "ruby-lsp", "~> 0.24.1"
+  gem "ruby-lsp", "~> 0.26.0"
   gem "ruby_parser"
-  gem "sorbet-static-and-runtime"
-  gem "tapioca", "0.17.0", require: false
+  gem "sorbet-static"
+  gem "tapioca", "0.17.7", require: false
   gem "temple", "~> 0.10"
   gem "rails"
 end

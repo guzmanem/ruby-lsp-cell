@@ -1,38 +1,31 @@
-# typed: strict
+# typed: false
 # frozen_string_literal: true
 
 module RubyLsp
   module Cell
     class CodeLens
-      extend T::Sig
-      extend T::Generic
-
       include ::RubyLsp::Requests::Support::Common
 
-      ResponseType = type_member { { fixed: T::Array[CodeRay] } }
-
-      sig do
-        params(
-          response_builder: RubyLsp::ResponseBuilders::CollectionResponseBuilder,
-          uri: URI::File,
-          dispatcher: Prism::Dispatcher,
-          global_state: RubyLsp::GlobalState,
-          enabled: T::Boolean,
-          default_view_filename: String,
-        ).void
-      end
+      #: (
+      #|  RubyLsp::ResponseBuilders::CollectionResponseBuilder[untyped] response_builder,
+      #|  URI::Generic uri,
+      #|  Prism::Dispatcher dispatcher,
+      #|  RubyLsp::GlobalState global_state,
+      #|  enabled: bool,
+      #|  default_view_filename: String
+      #| ) -> void
       def initialize(response_builder, uri, dispatcher, global_state, enabled:, default_view_filename:)
         return unless enabled
 
         @response_builder = response_builder
         @global_state = global_state
 
-        @path = T.let(uri.to_standardized_path, String)
-        @class_name = T.let("", String)
-        @pattern = T.let("_cell", String)
-        @default_view_filename = T.let(default_view_filename, String)
-        @in_cell_class = T.let(false, T::Boolean)
-        @nesting = T.let([], T::Array[String])
+        @path = uri.to_standardized_path #: String
+        @class_name = ""
+        @pattern = "_cell"
+        @default_view_filename = default_view_filename
+        @in_cell_class = false
+        @nesting = [] #: Array[String]
         dispatcher.register(
           self,
           :on_module_node_enter,
@@ -43,17 +36,17 @@ module RubyLsp
         )
       end
 
-      sig { params(node: Prism::ModuleNode).void }
+      #: (Prism::ModuleNode node) -> void
       def on_module_node_enter(node)
         @nesting.push(node.constant_path.slice)
       end
 
-      sig { params(node: Prism::ModuleNode).void }
+      #: (Prism::ModuleNode node) -> void
       def on_module_node_leave(node)
         @nesting.pop
       end
 
-      sig { params(node: Prism::ClassNode).void }
+      #: (Prism::ClassNode node) -> void
       def on_class_node_enter(node)
         @nesting.push(node.constant_path.slice)
         class_name = @nesting.join("::")
@@ -64,13 +57,13 @@ module RubyLsp
         add_default_goto_code_lens(node)
       end
 
-      sig { params(node: Prism::ClassNode).void }
+      #: (Prism::ClassNode node) -> void
       def on_class_node_leave(node)
         @nesting.pop
         @in_cell_class = false
       end
 
-      sig { params(node: Prism::DefNode).void }
+      #: (Prism::DefNode node) -> void
       def on_def_node_enter(node)
         return unless @in_cell_class
         return unless contains_render_call?(node.body)
@@ -80,7 +73,7 @@ module RubyLsp
 
       private
 
-      sig { params(node: Prism::Node).void }
+      #: (Prism::Node node) -> void
       def add_default_goto_code_lens(node)
         erb_filename = remove_last_pattern_in_string @default_view_filename, ".erb"
         uri = compute_erb_view_path @default_view_filename
@@ -88,7 +81,7 @@ module RubyLsp
         create_go_to_file_code_lens(node, erb_filename, uri)
       end
 
-      sig { params(node: T.nilable(Prism::Node)).returns(T::Boolean) }
+      #: (Prism::Node? node) -> bool
       def contains_render_call?(node)
         return false if node.nil?
 
@@ -99,18 +92,18 @@ module RubyLsp
         node.child_nodes.any? { |child| contains_render_call?(child) }
       end
 
-      sig { params(node: Prism::Node, name: String).void }
+      #: (Prism::Node node, String name) -> void
       def add_function_goto_code_lens(node, name)
         uri = compute_erb_view_path("#{name}.erb")
         create_go_to_file_code_lens(node, name, uri)
       end
 
-      sig { params(string: String, pattern: String).returns(String) }
+      #: (String string, String pattern) -> String
       def remove_last_pattern_in_string(string, pattern)
         string.sub(/#{pattern}$/, "")
       end
 
-      sig { params(name: String).returns(String) }
+      #: (String name) -> String
       def compute_erb_view_path(name)
         escaped_pattern = Regexp.escape(@pattern)
         base_path = @path.sub(/#{escaped_pattern}\.rb$/, "")
@@ -120,7 +113,7 @@ module RubyLsp
         uri
       end
 
-      sig { params(node: Prism::Node, name: String, uri: String).void }
+      #: (Prism::Node node, String name, String uri) -> void
       def create_go_to_file_code_lens(node, name, uri)
         @response_builder << create_code_lens(
           node,
